@@ -98,7 +98,7 @@ const LoginPage = () => {
             <div className="remember-forget">
                 <label><input type="checkbox"
                   required
-                />Remember me</label>
+                />Remember Me</label>
                 <a href='#'>Forget password?</a>
             </div>
             <button type='submit'>Login</button>
