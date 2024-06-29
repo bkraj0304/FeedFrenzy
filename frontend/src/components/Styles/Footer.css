@@ -1,0 +1,12 @@
+.footer {
+    background-color: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity)) !important;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+
+  }
+  

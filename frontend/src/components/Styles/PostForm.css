@@ -1,0 +1,11 @@
+.title_css{
+    width: 100%;
+    /* object-fit: contain; */
+    margin-top: 10px;
+    height: 40px;
+    margin-bottom: 0px;
+}
+
+.new{
+    width: 15%;
+}

@@ -1,0 +1,100 @@
+.post-card {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .image_css {
+    border-radius: 50%;
+    margin-top: 25px;
+  }
+  
+  .margin-vertical-20 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .padding-right-63 {
+    padding-right: 63px;
+  }
+  
+  .padding-right-66 {
+    padding-right: 66px;
+  }
+  
+  .textarea-70 {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  .comment_btn {
+    margin: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .deletePost_btn {
+    margin-left: 5px;
+  }
+  
+  .comments-section {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 200px; /* Limit height for scrollbar */
+    overflow-y: auto; /* Enable vertical scrollbar */
+  }
+  
+  .comments-section h6 {
+    font-weight: bold;
+  }
+  
+  .comments-list {
+    max-height: inherit; /* Inherit height from parent for scrollbar */
+  }
+  
+  .comment {
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 5px;
+  }
+  
+  .comment:last-child {
+    border-bottom: none;
+  }
+  
+  .comment strong {
+    margin-right: 5px;
+    font-weight: bold;
+  }
+  
+  .comment p {
+    margin: 0;
+  }
+  
+  /* Custom scrollbar */
+  .comments-section::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .comments-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .comments-section::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+  
+  .comments-section::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+  }
+  

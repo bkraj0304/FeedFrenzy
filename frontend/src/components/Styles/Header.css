@@ -1,0 +1,22 @@
+/* .header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+   */
+
+   /* No changes needed if not used directly */
+
+/* Example to style navbar brand */
+.navbar-brand {
+  /* background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center; */
+  font-size: 1.5rem; /* Example font size */
+}
+/* .btn_style{
+  width: 120px;
+} */
+

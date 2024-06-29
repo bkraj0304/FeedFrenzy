@@ -1,0 +1,231 @@
+/* .app-container {
+  margin-top: 5px;
+  background-color: lightgrey;
+}
+
+.card-lightgray {
+  background-color: lightgray;
+}
+
+.title-container {
+  margin-bottom: 10px;
+}
+
+.textarea-fullwidth {
+  height: 107px;
+  width: 100%;
+}
+
+.btn-margin-right {
+  margin-right: 81%;
+  margin-bottom: 43px;
+  margin-left: 5px;
+}
+
+.max-width-100 {
+  max-width: 100%;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
+.max-width-50 {
+  max-width: 50px;
+}
+
+.padding-right-0 {
+  padding-right: 0;
+}
+
+.margin-vertical-20 {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.font-size-24 {
+  font-size: 24px;
+}
+
+.padding-right-63 {
+  padding-right: 63%;
+}
+
+.padding-right-66 {
+  padding-right: 66%;
+}
+
+.textarea-70 {
+  width: 70%;
+}
+
+.margin-bottom-43 {
+  margin-bottom: 43px;
+}
+.parentdiv{
+  display: flex;
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+  margin-top: 10px;
+  
+}
+.childText{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.circular-image {
+  width: 50px;  
+  height: 50px;
+  border-radius: 50%;  
+  object-fit: cover;  
+} */
+/* Import Google Font */
+/* Import Google Font */
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  background-color: #e0e0e0; /* Light gray background */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.nav-item {
+  margin-bottom: 20px;
+}
+
+.parentdiv {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.parentdiv:hover {
+  background-color: #d0d0d0; /* Slightly darker gray for hover */
+  border-radius: 10px;
+}
+
+.circular-image {
+  width: 70px;  
+  height: 70px;
+  border-radius: 50%;  
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.childText {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #333; /* Default text color */
+}
+
+.childText a {
+  text-decoration: none;
+  color: inherit; /* Inherit the color from parent */
+  transition: color 0.3s;
+}
+
+.childText a:hover {
+  color: #007bff;
+}
+
+/* Custom class to align items in a single line */
+.single-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.single-line .parentdiv {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.single-line .parentdiv:first-child {
+  margin-right: 20px; /* Space between the two links */
+}
+
+/* General Styles */
+.app-container {
+  margin-top: 5px;
+  background-color: lightgrey;
+}
+
+.card-lightgray {
+  background-color: lightgray;
+}
+
+.title-container {
+  margin-bottom: 10px;
+}
+
+.textarea-fullwidth {
+  height: 107px;
+  width: 100%;
+}
+
+.btn-margin-right {
+  margin-right: 81%;
+  margin-bottom: 43px;
+  margin-left: 5px;
+}
+
+.max-width-100 {
+  max-width: 100%;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
+.max-width-50 {
+  max-width: 50px;
+}
+
+.padding-right-0 {
+  padding-right: 0;
+}
+
+.margin-vertical-20 {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.font-size-24 {
+  font-size: 24px;
+}
+
+.padding-right-63 {
+  padding-right: 63%;
+}
+
+.padding-right-66 {
+  padding-right: 66%;
+}
+
+.textarea-70 {
+  width: 70%;
+}
+
+.margin-bottom-43 {
+  margin-bottom: 43px;
+}

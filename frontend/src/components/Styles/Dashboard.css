@@ -1,0 +1,89 @@
+/* .app {
+  display: flex;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+.footer {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: calc(100% - 250px);
+  bottom: 0;
+}
+
+.chat-area {
+  flex-grow: 1;
+  padding: 20px;
+}
+ 
+  */
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensure app takes full viewport height */
+  }
+  
+  .header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000; /* Ensure header is above other content */
+  }
+  
+  .footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    bottom: 0;
+  }
+  
+  .main-content {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 61px; /* Adjust for header height */
+    margin-top: 5%;
+  }
+  
+  .side-bar {
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chat-area {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* Enable scrollbar for chat area if needed */
+    background-color: lightgray;
+  }
+  
+  .card-lightgray {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: lightgray;
+  }
+  

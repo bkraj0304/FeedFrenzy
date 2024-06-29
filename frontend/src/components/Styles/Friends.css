@@ -1,0 +1,100 @@
+.friend {
+  background-color: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity))!important;
+  color: black;
+  text-align: left;
+  border: 1px solid #070707;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.raj_container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+.first-row {
+  flex: 0.4; /* take up 40% of the container's height */
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.second-row {
+  flex: 0.6; /* take up 60% of the container's height */
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.second-row > div {
+  flex: 1; /* make the child divs take up equal space */
+  border: 1px solid black;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.friend-list {
+  overflow-y: auto;
+  max-height: 300px; /* adjust the height to your liking */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.friend-list-scroll {
+  padding: 10px;
+}
+
+.circular-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  padding-top: 5px;
+  flex-grow: 1;
+  text-align: left;
+      
+}
+
+.btn_css {
+  height: 40px;
+  width: auto;
+  margin-top: 0;
+  margin-left: 2%;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.accept_btn_css {
+  margin-left: 18%;
+} 
+
+.available-friend-list {
+  overflow-y: auto;
+  max-height: 250px; /* adjust the height to your liking */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.botton_class{
+  margin-bottom: 0px;
+}
+
+.usern_css{
+  text-align: center;
+}
