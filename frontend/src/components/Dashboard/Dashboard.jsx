@@ -19,6 +19,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
   var userDetailsString = ls.get('userDetails');
+  var userToken=ls.get('JWTToken');
   var userDetails = JSON.parse(userDetailsString);
   var userId = userDetails.userid;
   var userName = userDetails.username;
@@ -30,13 +31,14 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/getFriendsPosts`, {
         method: 'POST',
         headers: {
+          'token':userToken,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ userId })
     });
   
     const friendsPostDetails = await response.json();
-    // console.log("fetchFriendsPostsassses", friendsPostDetails);
+    console.log("fetchFriendsPostsassses", friendsPostDetails);
     if (friendsPostDetails.message === "Friends Details Fetched") {
 
         setPosts(friendsPostDetails.data);
@@ -51,7 +53,7 @@ const App = () => {
       // Handle the error here (e.g., show a message to the user or retry fetching)
       return [];
     }
-  }, [userId]);
+  }, [userId,userToken]);
   
   const fetchComments = useCallback(async (postId) => {
     try {
@@ -59,6 +61,7 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/getComments`, {
         method: 'POST',
         headers: {
+          'token':userToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ postid: postId })
@@ -75,7 +78,7 @@ const App = () => {
       // Handle the error here (e.g., show a message to the user or retry fetching)
       return [];
     }
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -91,6 +94,7 @@ const App = () => {
           // console.log("Here");
           for (const post of fetchedPosts) {
             const fetchedComments = await fetchComments(post.post_id);
+            console.log("fetchedComments",fetchedComments);
             commentsMap[post.post_id] = fetchedComments;
           }
           setComments(commentsMap);
@@ -139,7 +143,9 @@ const App = () => {
             <PostForm />
             <hr />
             <div id="userPostCard" className="card card-lightgray">
-              {posts.map((post) => (
+            {posts.length === 0 ? <div>No Available Posts</div>
+            :
+              posts.map((post) => (
                 <PostCard
                   key={post.post_id}
                   userName={post.friend_name}
@@ -154,6 +160,7 @@ const App = () => {
                   postCardFor={"friendspost"}
                 />
               ))}
+            
             </div>
           </div>
         </div>

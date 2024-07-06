@@ -11,6 +11,7 @@ const PostForm = () => {
   const navigate= useNavigate();
   
   var userDetailsString = ls.get('userDetails');
+  var userToken=ls.get('JWTToken');
   var userDetails = JSON.parse(userDetailsString);
   var user_id = userDetails.userid;
   const handleSubmit =async (e)=>{
@@ -18,6 +19,7 @@ const PostForm = () => {
    const response = await fetch('http://localhost:3001/post', {
       method: 'POST',
       headers: {
+        'token':userToken,
         'Content-Type': 'application/json'
       },
       // This converts the username, email, and password variables into a JSON string and sets it as the body of the request.

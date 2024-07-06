@@ -11,6 +11,7 @@ import ls from 'local-storage';
 const App = () => {
   const [friends, setFriends] = useState([]);
   var userDetailsString = ls.get('userDetails');
+  var userToken=ls.get('JWTToken');
   var userDetails = JSON.parse(userDetailsString);
   var userId = userDetails.userid;
 
@@ -19,6 +20,7 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/getFriends?userId=${userId}`, {
         method: 'GET',
         headers: {
+          'token':userToken,
           'Content-Type': 'application/json'
         }
       });
@@ -34,7 +36,7 @@ const App = () => {
     } catch (error) {
       // console.error('fetchPosts:', error);
     }
-  },[userId]);
+  },[userId,userToken]);
 
   useEffect(() => {
     if (userId) {

@@ -13,6 +13,6 @@ module.exports = async function (req, res, next) {
 
     // console.log("newMember",newMember);
     let message = await postgetDBController(newMember);
-    // console.log("postgetDBController",message);
+    console.log("postgetDBController",message);
     res.send(message);
 }

@@ -13,6 +13,7 @@ import ls from 'local-storage';
 const App = () => {
   const [userProfileDetails, setUserProfileDetails] = useState([]);
   const userDetailsString = ls.get('userDetails');
+  var userToken=ls.get('JWTToken');
   const userDetails = JSON.parse(userDetailsString);
   const userId = userDetails.userid;
 
@@ -21,6 +22,7 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/getUserDetails`, {
         method: 'POST',
         headers: {
+          'token':userToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ userId })
@@ -35,7 +37,7 @@ const App = () => {
     } catch (error) {
       console.error('UserDetails :', error.message);
     }
-  }, [userId]);
+  }, [userId,userToken]);
 
   useEffect(() => {
     if (userId) {
