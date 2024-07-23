@@ -27,7 +27,7 @@ module.exports = async function userPostCommentgetDB(newMemberData) {
                         commentsDetails.data=results;
                         resolve(commentsDetails);
                     }else {
-                        commentsDetails.message="Invalid credentials";
+                        commentsDetails.message="Comment Not Found";
                         resolve(commentsDetails);
                         // resolve('Invalid credentials');
                     }
