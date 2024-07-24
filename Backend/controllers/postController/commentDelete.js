@@ -4,7 +4,7 @@ module.exports = async function (req, res, next) {
     // console.log("Raj2");
     const commentId = req.query.commentId;
 
-    console.log("commentId",commentId);
+    // console.log("commentId",commentId);
         var newMember = {
         commentid: commentId,
     };
@@ -14,6 +14,6 @@ module.exports = async function (req, res, next) {
 
     // console.log("newMember",newMember);
     let message = await commentDeleteController(newMember);
-    console.log("commentDeleteController",message);
+    // console.log("commentDeleteController",message);
     res.send(message);
 }

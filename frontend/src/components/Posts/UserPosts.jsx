@@ -44,7 +44,7 @@ const App = () => {
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
         if(data.message==='Success'){
-          console.log("FetchPostssss",data.message);
+          // console.log("FetchPostssss",data.message);
           setPosts(data.data);
           return data.data;
 
@@ -94,7 +94,7 @@ const App = () => {
         try {
           // Fetch posts
           const fetchedPosts = await fetchPosts();
-           console.log("fetchedPOSTS",fetchedPosts.length);
+          //  console.log("fetchedPOSTS",fetchedPosts.length);
 
           setPosts(fetchedPosts);
 
@@ -106,7 +106,7 @@ const App = () => {
             commentsMap[post.post_id] = fetchedComments;
           }
           setComments(commentsMap);
-          console.log("commentsMap",commentsMap);
+          // console.log("commentsMap",commentsMap);
         } catch (error) {
           console.error('Error fetching posts or comments:', error);
         }
@@ -147,7 +147,7 @@ const App = () => {
   
   const handleDeleteComment = async (commentid, postid) => {
     try {
-      console.log("commentidraj",commentid,postid);
+      // console.log("commentidraj",commentid,postid);
       const response = await fetch(`http://localhost:3001/deletecomment?commentId=${commentid}`, {
         method: 'GET',
         headers: {
@@ -161,11 +161,11 @@ const App = () => {
       }
 
       const result = await response.json();
-      console.log("CommentDeleteResult",result);
+      // console.log("CommentDeleteResult",result);
 
       if (result.message === 'comment deleted Successfully') {
         // Refresh comments for the specific post
-        console.log("Yes");
+        // console.log("Yes");
         const fetchedComments = await fetchComments(postid);
         setComments(prevComments => ({ ...prevComments, [postid]: fetchedComments }));
       }

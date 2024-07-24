@@ -20,7 +20,7 @@ module.exports = async function userPostCommentgetDB(newMemberData) {
                     resolve(commentsDetails);
 
                 } else{
-                    console.log("Comments",results);
+                    // console.log("Comments",results);
                     if (results.length > 0){
                         // console.log("Raj3",results);
                         commentsDetails.message="Comments Fetched Successfully";

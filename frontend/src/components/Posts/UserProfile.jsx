@@ -47,7 +47,7 @@ const App = () => {
 
   useEffect(() => {
     if (userProfileDetails.length > 0) {
-      console.log("UserDetails", userProfileDetails, userProfileDetails[0].user_name, userProfileDetails[0].user_gender);
+      // console.log("UserDetails", userProfileDetails, userProfileDetails[0].user_name, userProfileDetails[0].user_gender);
     }
   }, [userProfileDetails]);
 
