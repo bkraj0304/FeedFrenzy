@@ -20,14 +20,14 @@ module.exports = async function userPostCommentgetDB(newMemberData) {
                     resolve(commentsDetails);
 
                 } else{
-                    console.log("Comments",results);
+                    // console.log("Comments",results);
                     if (results.length > 0){
                         // console.log("Raj3",results);
                         commentsDetails.message="Comments Fetched Successfully";
                         commentsDetails.data=results;
                         resolve(commentsDetails);
                     }else {
-                        commentsDetails.message="Invalid credentials";
+                        commentsDetails.message="Comment Not Found";
                         resolve(commentsDetails);
                         // resolve('Invalid credentials');
                     }

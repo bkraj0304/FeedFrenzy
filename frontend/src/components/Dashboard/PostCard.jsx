@@ -125,8 +125,9 @@ import LadyImg from '../Assets/lady1.jpg';
 import { useState, useEffect } from 'react';
 import ls from 'local-storage';
 
-const PostCard = ({ userName, date, title, about, postid, onDelete, userGender, friendid, comments }) => {
+const PostCard = ({ userName, date, title, about, postid, onDelete, userGender, friendid, comments,postCardFor ,onDeleteComment}) => {
   var userDetailsString = ls.get('userDetails');
+  var userToken=ls.get('JWTToken');
   var userDetails = JSON.parse(userDetailsString);
   var userId = userDetails.userid;
   var username = userDetails.username;
@@ -146,6 +147,7 @@ const PostCard = ({ userName, date, title, about, postid, onDelete, userGender, 
       const response = await fetch('http://localhost:3001/handleComment', {
         method: 'POST',
         headers: {
+          'token':userToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ comment, friendid, friendName, postid, userId, username, usergender })
@@ -221,14 +223,16 @@ const PostCard = ({ userName, date, title, about, postid, onDelete, userGender, 
             commentsList.map((comment, index) => (
               <div key={index} className="comment">
                 <strong>{comment.userName}:</strong> {comment.userComment}
-                {/* {postCardFor==="userpost"?
+                
+                {postCardFor==="userpost"?
                   <button type="button"
-                        className=" btn btn-danger delete_css deletePost_btn btn_css botton_class">
+                        className=" btn btn-danger delete_css deletePost_btn btn_css botton_class remove-comment-btn" 
+                        onClick={() => onDeleteComment(comment.comment_id)}>
                         Remove
                         </button>
                   :
-                  {}
-                } */}
+                  null
+                }
                 
               </div>
             ))

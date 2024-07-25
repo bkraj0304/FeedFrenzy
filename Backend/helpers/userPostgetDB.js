@@ -14,9 +14,9 @@ module.exports = async function userPostgetDB(newMemberData) {
                 } else{
                     if (results.length > 0){
                         // console.log("Raj3",results);
-                        resolve(results);
+                        resolve({message:"Success",data:results});
                     }else {
-                        resolve('Invalid credentials');
+                        resolve({message:"No Posts Available",data:[]});
                     }
                 }
             })

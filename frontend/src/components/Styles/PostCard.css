@@ -98,3 +98,7 @@
     background: #b3b3b3;
   }
   
+  .remove-comment-btn {
+    float: right;
+    margin-left: 10px;
+  }

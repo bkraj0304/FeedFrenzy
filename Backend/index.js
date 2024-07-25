@@ -20,12 +20,14 @@ var getFriendsPosts=require('./controllers/postController/getFriendsPosts');
 var insertComment=require('./controllers/postController/insertComment');
 var getPostComments=require('./controllers/postController/getUserComments');
 var getUserDetails=require('./controllers/postController/getUserDetails');
+var deleteComments=require('./controllers/postController/commentDelete');
+const verifyJWTMiddleWare=require('./middleware/auth');
 // Middleware setup
 app.use(cors());
 app.use(express.json());
-
+const port=process.env.PORT || 3001;
 // Start the server and connect to the database
-app.listen(3001, () => {
+app.listen(port, () => {
     console.log("Server running on port 3001");
     
 });
@@ -38,30 +40,32 @@ app.post('/register', userRegisterController);
 /*user Login*/
 app.post('/login',userLogin);
 
-app.post('/post',postInsert);
+app.post('/post',[verifyJWTMiddleWare],postInsert);
 
-app.get('/getposts',getposts);
+app.get('/getposts',[verifyJWTMiddleWare],getposts);
 
-app.get('/deletepost',deleteposts);
+app.get('/deletepost',[verifyJWTMiddleWare],deleteposts);
 
-app.get('/getFriends',getFriendlist);
+app.get('/getFriends',[verifyJWTMiddleWare],getFriendlist);
 
-app.post('/sendRequest',sendRequest);
+app.post('/sendRequest',[verifyJWTMiddleWare],sendRequest);
 
-app.get('/getrequest',getRequestDetails);
+app.get('/getrequest',[verifyJWTMiddleWare],getRequestDetails);
 
-app.post('/acceptRequest',sendacceptRequest);
+app.post('/acceptRequest',[verifyJWTMiddleWare],sendacceptRequest);
 
-app.post('/getUserFriends',getUserFriendList);
+app.post('/getUserFriends',[verifyJWTMiddleWare],getUserFriendList);
 
-app.post('/rejectRequest',sendRejectRequest);
+app.post('/rejectRequest',[verifyJWTMiddleWare],sendRejectRequest);
 
-app.post('/removeFriendRequest',sendRemoveFriendRequest);
+app.post('/removeFriendRequest',[verifyJWTMiddleWare],sendRemoveFriendRequest);
 
-app.post('/getFriendsPosts',getFriendsPosts);
+app.post('/getFriendsPosts',[verifyJWTMiddleWare],getFriendsPosts);
 
-app.post('/handleComment',insertComment);
+app.post('/handleComment',[verifyJWTMiddleWare],insertComment);
 
-app.post('/getComments',getPostComments);
+app.post('/getComments',[verifyJWTMiddleWare],getPostComments);
 
-app.post('/getUserDetails',getUserDetails);
+app.post('/getUserDetails',[verifyJWTMiddleWare],getUserDetails);
+
+app.get('/deletecomment',[verifyJWTMiddleWare],deleteComments);

@@ -6,7 +6,6 @@ import PostForm from './PostForm';
 import PostCard from './PostCard';
 import Header from './Header';
 import Footer from './Footer';
-import Friends from '../Friends/Friends';
 import ls from 'local-storage';
 
 const formatDate = (dateString) => {
@@ -19,46 +18,49 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
   var userDetailsString = ls.get('userDetails');
+  var userToken = ls.get('JWTToken');
   var userDetails = JSON.parse(userDetailsString);
-  var userId = userDetails.userid;
-  var userName = userDetails.username;
+  var userId = userDetails?.userid;
+  var userName = userDetails?.username;
   var userGender = userDetails ? userDetails.userGender : 'unknown';
   
   const fetchPosts = useCallback(async () => {
     try {
-      
       const response = await fetch(`http://localhost:3001/getFriendsPosts`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'token': userToken,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ userId })
-    });
+      });
   
-    const friendsPostDetails = await response.json();
-    // console.log("fetchFriendsPostsassses", friendsPostDetails);
-    if (friendsPostDetails.message === "Friends Details Fetched") {
-
+      const friendsPostDetails = await response.json();
+      // console.log("fetchFriendsPostsassses", friendsPostDetails);
+      if (friendsPostDetails.message === "Friends Details Fetched") {
+        if (!friendsPostDetails.data || friendsPostDetails.data.length === 0) {
+          // console.log('No posts available');
+          return [];
+        }
         setPosts(friendsPostDetails.data);
         return friendsPostDetails.data;
-        // console.log("FriendsPosts",friendsPostDetails.data);
-    } else {
-        alert(friendsPostDetails.message);
-    }
-
+      } else {
+        // alert(friendsPostDetails.message);
+        return [];
+      }
     } catch (error) {
-      console.error('Dashboard :', error.message);
+      // console.error('Dashboard :', error.message);
       // Handle the error here (e.g., show a message to the user or retry fetching)
       return [];
     }
-  }, [userId]);
+  }, [userId, userToken]);
   
   const fetchComments = useCallback(async (postId) => {
     try {
-      // console.log("Yes");
       const response = await fetch(`http://localhost:3001/getComments`, {
         method: 'POST',
         headers: {
+          'token': userToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ postid: postId })
@@ -69,32 +71,31 @@ const App = () => {
       }
   
       const data = await response.json();
+      if (!data || data.length === 0) {
+        // console.log('No comments available for post:', postId);
+        return [];
+      }
       return data;
     } catch (error) {
       console.error('Dashboard :', error.message);
       // Handle the error here (e.g., show a message to the user or retry fetching)
       return [];
     }
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     const fetchAllData = async () => {
       if (userId) {
         try {
-          // Fetch posts
           const fetchedPosts = await fetchPosts();
-          // console.log("fetchedPOSTS",fetchedPosts);
           setPosts(fetchedPosts);
 
-          // Fetch comments for each post
           const commentsMap = {};
-          // console.log("Here");
           for (const post of fetchedPosts) {
             const fetchedComments = await fetchComments(post.post_id);
             commentsMap[post.post_id] = fetchedComments;
           }
           setComments(commentsMap);
-          // console.log("commentsMap",commentsMap);
         } catch (error) {
           console.error('Error fetching posts or comments:', error);
         }
@@ -104,56 +105,32 @@ const App = () => {
     fetchAllData();
   }, [userId, fetchPosts, fetchComments]);
 
-  // const handleDelete = async (postid) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3001/deletepost?postid=${postid}`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       }
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-
-  //     const result = await response.json();
-
-  //     if (result.message === 'Post deleted successfully') {
-  //       fetchPosts();
-  //     }
-
-  //   } catch (error) {
-  //     console.error('Error deleting post:', error);
-  //     fetchPosts();
-  //   }
-  // };
-
   return (
     <div>
       <Header />
-      <div className="container text-center app-container" style={{marginTop: '5%'}}>
+      <div className="container text-center app-container" style={{ marginTop: '5%' }}>
         <div className="row align-items-start">
           <SideBar />
           <div className="col col-md-10">
             <PostForm />
             <hr />
             <div id="userPostCard" className="card card-lightgray">
-              {posts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  userName={post.friend_name}
-                  date={formatDate(post.creater_in)}
-                  title={post.post_title}
-                  about={post.post_body}
-                  postid={post.post_id}
-                  userGender={post.friend_gender}
-                  friendid={post.user_id}
-                  onDelete={null}
-                  comments={comments[post.post_id] || []}
-                  postCardFor={"friendspost"}
-                />
-              ))}
+              {posts.length === 0 ? <div>No Available Posts</div>
+                : posts.map((post) => (
+                  <PostCard
+                    key={post.post_id}
+                    userName={post.friend_name}
+                    date={formatDate(post.creater_in)}
+                    title={post.post_title}
+                    about={post.post_body}
+                    postid={post.post_id}
+                    userGender={post.friend_gender}
+                    friendid={post.user_id}
+                    onDelete={null}
+                    comments={comments[post.post_id] || []}
+                    postCardFor={"friendspost"}
+                  />
+                ))}
             </div>
           </div>
         </div>
@@ -164,18 +141,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,6 +13,7 @@ const FriendContainer = ({ data }) => {
     const navigate = useNavigate();
     const [friendsList, setFriendsList] = useState([]);
     var userDetailsString = ls.get('userDetails');
+    var userToken=ls.get('JWTToken');
     var userDetails = JSON.parse(userDetailsString);
     var sender_id = userDetails.userid;
     var sender_name = userDetails.username;
@@ -21,6 +22,7 @@ const FriendContainer = ({ data }) => {
         const response = await fetch('http://localhost:3001/sendRequest', {
             method: 'POST',
             headers: {
+                'token':userToken,
                 'Content-Type': 'application/json'
             },
 
@@ -44,6 +46,7 @@ const FriendContainer = ({ data }) => {
             const response = await fetch(`http://localhost:3001/getrequest?userId=${sender_id}`, {
                 method: 'GET',
                 headers: {
+                    'token':userToken,
                     'Content-Type': 'application/json'
                 }
             });
@@ -62,13 +65,14 @@ const FriendContainer = ({ data }) => {
         } catch (error) {
             console.error('fetchRequest:', error);
         }
-    }, [sender_id]);
+    }, [sender_id,userToken]);
 
     const handleAcceptRequest = async (friendId, friendName, friendGender, senderGender) => {
         try {
             const response = await fetch('http://localhost:3001/acceptRequest', {
                 method: 'POST',
                 headers: {
+                    'token':userToken,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ friendId, friendName, friendGender, sender_id, sender_name, senderGender })
@@ -89,6 +93,7 @@ const FriendContainer = ({ data }) => {
             const response = await fetch('http://localhost:3001/rejectRequest', {
                 method: 'POST',
                 headers: {
+                    'token':userToken,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ friendId, userId })
@@ -109,6 +114,7 @@ const FriendContainer = ({ data }) => {
             const response = await fetch('http://localhost:3001/removeFriendRequest', {
                 method: 'POST',
                 headers: {
+                    'token':userToken,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ friendId, userId })
@@ -137,6 +143,7 @@ const FriendContainer = ({ data }) => {
             const response = await fetch(`http://localhost:3001/getUserFriends`, {
                 method: 'POST',
                 headers: {
+                    'token':userToken,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ sender_id })
@@ -160,7 +167,7 @@ const FriendContainer = ({ data }) => {
         } catch (error) {
             console.error('fetchFriendsList :', error);
         }
-    }, [sender_id]);
+    }, [sender_id,userToken]);
 
 
 

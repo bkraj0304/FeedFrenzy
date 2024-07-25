@@ -19,6 +19,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
   var userDetailsString = ls.get('userDetails');
+  var userToken=ls.get('JWTToken');
   var userDetails = JSON.parse(userDetailsString);
   var userId = userDetails.userid;
   var userName= userDetails.username;
@@ -30,6 +31,7 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/getposts?userId=${userId}`, {
         method: 'GET',
         headers: {
+          'token':userToken,
           'Content-Type': 'application/json'
         }
       });
@@ -41,8 +43,17 @@ const App = () => {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-        setPosts(data);
-        return data;
+        if(data.message==='Success'){
+          // console.log("FetchPostssss",data.message);
+          setPosts(data.data);
+          return data.data;
+
+        }
+        else{
+          setPosts([]);
+          return data.data;
+
+        }
       } else {
         throw new Error('Response was not in JSON format');
       }
@@ -50,7 +61,7 @@ const App = () => {
       console.error('Dashboard :', error.message);
       // Handle the error here (e.g., show a message to the user or retry fetching)
     }
-  }, [userId]);
+  }, [userId,userToken]);
 
   const fetchComments = useCallback(async (postId) => {
     try {
@@ -58,6 +69,7 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/getComments`, {
         method: 'POST',
         headers: {
+          'token':userToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ postid: postId })
@@ -74,7 +86,7 @@ const App = () => {
       // Handle the error here (e.g., show a message to the user or retry fetching)
       return [];
     }
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -82,7 +94,8 @@ const App = () => {
         try {
           // Fetch posts
           const fetchedPosts = await fetchPosts();
-           console.log("fetchedPOSTS",fetchedPosts);
+          //  console.log("fetchedPOSTS",fetchedPosts.length);
+
           setPosts(fetchedPosts);
 
           // Fetch comments for each post
@@ -93,7 +106,7 @@ const App = () => {
             commentsMap[post.post_id] = fetchedComments;
           }
           setComments(commentsMap);
-          console.log("commentsMap",commentsMap);
+          // console.log("commentsMap",commentsMap);
         } catch (error) {
           console.error('Error fetching posts or comments:', error);
         }
@@ -110,6 +123,7 @@ const App = () => {
       const response = await fetch(`http://localhost:3001/deletepost?postid=${postid}`, {
         method: 'GET',
           headers: {
+            'token':userToken,
             'Content-Type': 'application/json'
           }
       });
@@ -130,6 +144,37 @@ const App = () => {
     }
   };
 
+  
+  const handleDeleteComment = async (commentid, postid) => {
+    try {
+      // console.log("commentidraj",commentid,postid);
+      const response = await fetch(`http://localhost:3001/deletecomment?commentId=${commentid}`, {
+        method: 'GET',
+        headers: {
+          'token': userToken,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      // console.log("CommentDeleteResult",result);
+
+      if (result.message === 'comment deleted Successfully') {
+        // Refresh comments for the specific post
+        // console.log("Yes");
+        const fetchedComments = await fetchComments(postid);
+        setComments(prevComments => ({ ...prevComments, [postid]: fetchedComments }));
+      }
+
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
 
   return (
 
@@ -142,7 +187,9 @@ const App = () => {
           <div className="col col-md-10">
 
             <div id="userPostCard" className="card card-lightgray">
-              {posts.map((post) => (
+            {posts.length === 0 ? <div>No Available Posts</div>
+            :
+              posts.map((post) => (
                 <PostCard
                   key={post.post_id}
                   userName={userName}
@@ -152,6 +199,7 @@ const App = () => {
                   postid={post.post_id}
                   userGender={userGender}
                   onDelete= {handleDelete}
+                  onDeleteComment={(commentid) => handleDeleteComment(commentid, post.post_id)}
                   comments={comments[post.post_id] || []}
                   postCardFor={"userpost"}
 
